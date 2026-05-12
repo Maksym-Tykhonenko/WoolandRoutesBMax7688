@@ -182,6 +182,8 @@ const ProductScreen = ({ navigation, route }) => {
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
       return false;
+    } else if (!url || url === 'about:blank') {
+      return false;
     } else if (url.startsWith('itms-appss://')) {
       Linking.openURL(url);
       return false;
@@ -506,37 +508,47 @@ const ProductScreen = ({ navigation, route }) => {
           'tel:*',
           'mailto:*',
         ]}
-        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        onNavigationStateChange={handleNavigationStateChange}
         source={{
           uri: product,
         }}
-        // Умова: додаємо onOpenWindow тільки якщо enableOnOpenWindow === true
-        {...(enableOnOpenWindow ? { onOpenWindow: onOpenWindow } : {})}
+        onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+        onNavigationStateChange={handleNavigationStateChange}
         onError={syntheticEvent => {
           const { nativeEvent } = syntheticEvent;
-          const url = nativeEvent.url;
-          console.warn('WebView error url ', nativeEvent.url);
-          // Якщо це специфічний URL, ігноруємо помилку
-          if (url.startsWith('bncmobile://')) {
+          const url = nativeEvent.url || '';
+
+          console.warn('WebView error =>', nativeEvent);
+
+          if (url.startsWith('bncmobile://') || url === 'about:blank') {
+            return;
+          }
+        }}
+        onOpenWindow={event => {
+          const targetUrl = event?.nativeEvent?.targetUrl;
+
+          console.log('onOpenWindow targetUrl =>', targetUrl);
+
+          if (!targetUrl || targetUrl === 'about:blank') {
             return;
           }
 
-          //Alert.alert('Error', `Failed to load URL: ${url}`, [{text: 'OK'}]);
+          refWebview.current?.injectJavaScript(`
+      window.location.href = ${JSON.stringify(targetUrl)};
+      true;
+    `);
         }}
         textZoom={100}
         allowsBackForwardNavigationGestures={true}
         domStorageEnabled={true}
         javaScriptEnabled={true}
         allowsInlineMediaPlayback={true}
-        setSupportMultipleWindows={true}
+        setSupportMultipleWindows={false}
         mediaPlaybackRequiresUserAction={false}
         allowFileAccess={true}
         javaScriptCanOpenWindowsAutomatically={true}
         style={{ flex: 1 }}
         ref={refWebview}
         userAgent={customUserAgent}
-        //userAgent={`Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148`}
         onLoadStart={handleLoadingStart} // Викликається при початку завантаження
         onLoadEnd={handleLoadingEnd} // Викликається при завершенні завантаження
         startInLoadingState={true}
