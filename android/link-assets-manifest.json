@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "wolasrc/olrasests/fontsdir/Consolas.ttf",
+      "sha1": "8b9d694c5fd28eadcc6b96c3e7c5cc07c21d6032"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/CormorantGaramond-Italic.ttf",
+      "sha1": "29975f0966555547fed2c1b99a2f233d87c68fe8"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/CormorantGaramond-Light.ttf",
+      "sha1": "df5f8bc368bf087c76ff4c2460d447081dc73df3"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/CormorantGaramond-Medium.ttf",
+      "sha1": "55a98c74fc7eea493391e25bfa6cee770a9fa7f9"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/CormorantGaramond-Regular.ttf",
+      "sha1": "867aaae05cfce4fca8a4f5c3522b46b01b0068be"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/SFProText-Medium.ttf",
+      "sha1": "3b8df618cd23e83843b16a8a32de1ddc9de44df4"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/SFProText-Regular.ttf",
+      "sha1": "b4893462f2289df6978f9462a63db9e64bcc9342"
+    },
+    {
+      "path": "wolasrc/olrasests/fontsdir/SFProText-Semibold.ttf",
+      "sha1": "9560ae412d73c7c9af72333db50464b4e597b0f9"
+    }
+  ]
+}
